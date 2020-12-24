@@ -12,16 +12,15 @@ import Activity from "./entities/Activity";
 const main = async () => {
   const key = fs.readFileSync("./key.pem");
   const cert = fs.readFileSync("./cert.pem");
+  dotenv.config(); // Configure reading of .env file
 
   const app = express();
   const PORT = 8000;
 
   const server = https.createServer({ key, cert }, app);
-  dotenv.config(); // Configure reading of .env file
 
   // Setup the connection to the database
   const db = await createConnection().catch((e) => console.log(e));
-  console.log(db);
 
   // Setup the passport strategy for github auth
   passport.use(

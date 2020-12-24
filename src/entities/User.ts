@@ -13,7 +13,7 @@ export default class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: number;
 
-  @Column("text", { unique: true })
+  @Column("varchar", { unique: true })
   githubId!: string;
 
   @Column("text")
