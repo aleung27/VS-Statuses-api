@@ -39,7 +39,7 @@ const main = async () => {
           /**
            *  Either find the existing user matching the github profile id
            *  or create a new user with the given information from the profile
-           *  Note, refreshToken is undefined!
+           *  Note, refreshToken is undefined for github!
            */
           let user: User | undefined = await User.findOne({
             githubId: profile.id,
@@ -66,7 +66,7 @@ const main = async () => {
       }
     )
   );
-
+  // Needs API tokens!
   passport.serializeUser((user: User, done) => {
     done(null, user.id);
   });

@@ -16,5 +16,7 @@ declare namespace NodeJS {
     TYPEORM_SYNCHRONIZE: string; // This is actually a boolean
     TYPEORM_LOGGING: string; // This is actually a boolean
     TYPEORM_ENTITIES: string;
+    ACCESS_TOKEN_SECRET: string;
+    REFRESH_TOKEN_SECRET: string;
   }
 }

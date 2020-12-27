@@ -16,5 +16,7 @@ Create a .env file in the root of the project and add the following fields with 
 - TYPEORM_DATABASE
 - TYPEORM_PORT
 - TYPEORM_ENTITIES
+- ACCESS_TOKEN_SECRET
+- REFRESH_TOKEN_SECRET
 
 Optionally TYPEORM_SYNCHRONIZE and TYPEORM_LOGGING may also be specified for a development environment
