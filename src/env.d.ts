@@ -6,6 +6,7 @@ declare namespace NodeJS {
   export interface ProcessEnv {
     GITHUB_CLIENT_SECRET: string;
     GITHUB_CLIENT_ID: string;
+    NODE_ENV: string;
     URL: string;
     TYPEORM_CONNECTION: string;
     TYPEORM_HOST: string;

@@ -50,8 +50,8 @@ const authenticateTokens = async (
 
   try {
     // See if the access token is valid and call next() if it is
-    // Append the id onto the req for user identification in express
-    (req as any).id = (verify(
+    // Append the id onto the res for user identification in express
+    res.locals.id = (verify(
       accessToken,
       process.env.ACCESS_TOKEN_SECRET
     ) as any).id;
@@ -70,16 +70,14 @@ const authenticateTokens = async (
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET
       ) as any;
-      console.log(tokenData);
       const user = await User.findOneOrFail({ id: tokenData.id });
 
       // If we found a user, generate new tokens and send them back
       const tokens = generateTokens(user);
       res.setHeader("access-token", tokens.accessToken);
       res.setHeader("refresh-token", tokens.refreshToken);
-      (req as any).id = user.id;
+      res.locals.id = user.id;
     } catch (err) {
-      console.log(err);
       return next(createError(401, "Unauthorized"));
     }
   }
