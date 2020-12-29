@@ -2,10 +2,11 @@ import express from "express";
 import https from "https";
 import fs from "fs";
 import passport from "passport";
-import { Strategy as GitHubStrategy } from "passport-github";
+import configurePassport from "./utilities/configurePassport";
 import * as dotenv from "dotenv";
 import "reflect-metadata";
 import { createConnection, getConnection } from "typeorm";
+import { generateTokens, authenticateTokens } from "./utilities/tokens";
 import User from "./entities/User";
 import Activity from "./entities/Activity";
 
@@ -26,58 +27,27 @@ const main = async () => {
     return;
   }
 
-  // Setup the passport strategy for github auth
-  passport.use(
-    new GitHubStrategy(
-      {
-        clientID: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: `${process.env.URL}/auth/callback`,
-      },
-      async (accessToken, refreshToken, profile, callback) => {
-        try {
-          /**
-           *  Either find the existing user matching the github profile id
-           *  or create a new user with the given information from the profile
-           *  Note, refreshToken is undefined for github!
-           */
-          let user: User | undefined = await User.findOne({
-            githubId: profile.id,
-          });
-          const userData = {
-            githubId: profile.id,
-            accessToken,
-            username: profile.username,
-            displayName: profile.displayName,
-            profilePicUrl: profile.photos?.[0] ? profile.photos?.[0].value : "",
-          };
-
-          if (user) {
-            await User.update(user.id, userData);
-          } else {
-            user = await User.create(userData).save();
-          }
-
-          callback(null, user);
-        } catch (e) {
-          console.log(e);
-          callback(new Error("Internal Server Error"));
-        }
-      }
-    )
-  );
-  // Needs API tokens!
-  passport.serializeUser((user: User, done) => {
-    done(null, user.id);
-  });
+  configurePassport();
 
   app.use(passport.initialize());
-
-  app.get("/", (req, res) => res.send("Express Server Running"));
 
   app.get("/failed", (req, res) => res.send("Authentication failed :("));
 
   app.get("/done", (req, res) => res.send("You are done authenticating!"));
+
+  app.get("/gen", async (req, res) => {
+    try {
+      res.send(
+        JSON.stringify(
+          generateTokens(await User.findOneOrFail({ githubId: "59858450" }))
+        )
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
+  app.get("/testauth", authenticateTokens, (req, res) => res.send("nice!"));
 
   app.get(
     "/auth",
