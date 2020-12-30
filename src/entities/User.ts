@@ -14,7 +14,7 @@ export default class User extends BaseEntity {
    * The unique user id for each user
    */
   @PrimaryGeneratedColumn("uuid")
-  id!: number;
+  id!: string;
 
   /**
    * The unique github id associated with the user's github account

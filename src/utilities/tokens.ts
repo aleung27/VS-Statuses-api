@@ -4,13 +4,20 @@ import createError from "http-errors";
 import { verify, sign } from "jsonwebtoken";
 
 /**
+ * Interface for the object represented by a pair of tokens comprising
+ * the access token for our API and the refresh token
+ */
+interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
+/**
  * Generates the access and refresh tokens for our API for a user
  * @param user The User entity associated with the user we are generating the tokens for
  * @returns {accesstoken, refreshtoken} Tokens associated with the user granting access to out api
  */
-const generateTokens = (
-  user: User
-): { accessToken: string; refreshToken: string } => {
+const generateTokens = (user: User): Tokens => {
   /**
    * Access token has 1hr expiry
    * Refresh token has 14d expiry
@@ -85,4 +92,4 @@ const authenticateTokens = async (
   next();
 };
 
-export { generateTokens, authenticateTokens };
+export { Tokens, generateTokens, authenticateTokens };

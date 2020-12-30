@@ -1,6 +1,6 @@
 import User from "../entities/User";
 import passport from "passport";
-import { Strategy as GitHubStrategy } from "passport-github";
+import { Strategy } from "passport-github";
 import { generateTokens } from "./tokens";
 
 /**
@@ -9,7 +9,7 @@ import { generateTokens } from "./tokens";
  */
 const configurePassport = () => {
   passport.use(
-    new GitHubStrategy(
+    new Strategy(
       {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -49,7 +49,11 @@ const configurePassport = () => {
   );
 
   passport.serializeUser((user: User, done) => {
-    done(null, user.id);
+    done(null, user);
+  });
+
+  passport.deserializeUser((user: User, done) => {
+    done(null, user);
   });
 };
 
