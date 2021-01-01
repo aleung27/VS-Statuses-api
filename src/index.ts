@@ -1,7 +1,6 @@
 import express from "express";
 import https from "https";
 import fs from "fs";
-import passport from "passport";
 import * as dotenv from "dotenv";
 import "reflect-metadata";
 import { createConnection, getConnection } from "typeorm";

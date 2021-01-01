@@ -19,7 +19,7 @@ export default class User extends BaseEntity {
   /**
    * The unique github id associated with the user's github account
    */
-  @Column("varchar", { unique: true })
+  @Column("int", { unique: true })
   githubId!: number;
 
   /**
