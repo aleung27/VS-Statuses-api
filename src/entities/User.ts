@@ -51,6 +51,18 @@ export default class User extends BaseEntity {
   profilePicUrl!: string;
 
   /**
+   * List of github Id's that the user is following
+   */
+  @Column("simple-array")
+  following!: number[];
+
+  /**
+   * Etag of the last request to the user's following list
+   */
+  @Column("text")
+  followingEtag!: string | null;
+
+  /**
    * Latest activity associated with the user
    */
   @OneToOne(() => Activity, (activity) => activity.owner)

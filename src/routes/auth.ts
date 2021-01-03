@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import User from "../entities/User";
 import { Octokit } from "@octokit/rest";
 import { generateTokens } from "../utilities/tokens";
+import updateFollowing from "../utilities/updateFollowing";
 import createError from "http-errors";
 
 /**
@@ -47,6 +48,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     // Generate access and refresh tokens and return to user
+    updateFollowing(user);
     res.json(generateTokens(user));
   } else {
     // Incorrect body attached
