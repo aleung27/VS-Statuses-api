@@ -11,6 +11,7 @@ import { Tokens, generateTokens, authenticateTokens } from "./utilities/tokens";
 import User from "./entities/User";
 import Activity from "./entities/Activity";
 import auth from "./routes/auth";
+import postUpdate from "./routes/postUpdate";
 import { errorCatcher, errorHandler } from "./utilities/errors";
 
 const PORT = 8000;
@@ -52,6 +53,8 @@ const main = async () => {
    * Route for authentication of the user for our API
    */
   app.post("/auth", errorCatcher(auth));
+
+  app.post("/update", authenticateTokens, errorCatcher(postUpdate));
 
   /**
    * Match any other route with a 404 error

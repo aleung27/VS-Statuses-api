@@ -9,24 +9,33 @@ import User from "./User";
 
 @Entity()
 export default class Activity extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
   @Column("bigint")
   timestamp!: number;
 
-  @Column("text")
-  language!: string;
+  @Column("text", { nullable: true })
+  language!: string | null;
 
-  @Column("text")
-  filename!: string;
+  @Column("text", { nullable: true })
+  filename!: string | null;
 
-  @Column("text")
-  workspaceName!: string;
+  @Column("text", { nullable: true })
+  workspaceName!: string | null;
 
-  @Column("text")
-  customStatus!: string;
+  @Column("text", { nullable: true })
+  customStatus!: string | null;
 
   @OneToOne(() => User, (user) => user.activity)
   owner!: User;
+}
+
+// Interface for what the request body should look like
+export interface ActivityInterface {
+  timestamp: number;
+  language: string | null;
+  filename: string | null;
+  workspaceName: string | null;
+  customStatus: string | null;
 }
