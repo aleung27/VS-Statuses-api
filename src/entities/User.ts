@@ -59,7 +59,7 @@ export default class User extends BaseEntity {
   /**
    * Etag of the last request to the user's following list
    */
-  @Column("text")
+  @Column("text", { nullable: true })
   followingEtag!: string | null;
 
   /**

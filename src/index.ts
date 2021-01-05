@@ -8,10 +8,8 @@ import bodyParse from "body-parser";
 
 import { createConnection, getConnection } from "typeorm";
 import { Tokens, generateTokens, authenticateTokens } from "./utilities/tokens";
-import User from "./entities/User";
-import Activity from "./entities/Activity";
 import auth from "./routes/auth";
-import postUpdate from "./routes/postUpdate";
+import update from "./routes/update";
 import { errorCatcher, errorHandler } from "./utilities/errors";
 
 const PORT = 8000;
@@ -54,7 +52,10 @@ const main = async () => {
    */
   app.post("/auth", errorCatcher(auth));
 
-  app.post("/update", authenticateTokens, errorCatcher(postUpdate));
+  /**
+   * Route for the updating of the user's activity + getting statuses of following
+   */
+  app.post("/update", authenticateTokens, errorCatcher(update));
 
   /**
    * Match any other route with a 404 error

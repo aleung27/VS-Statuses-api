@@ -25,17 +25,8 @@ export default class Activity extends BaseEntity {
   workspaceName!: string | null;
 
   @Column("text", { nullable: true })
-  customStatus!: string | null;
+  customMessage!: string | null;
 
   @OneToOne(() => User, (user) => user.activity)
   owner!: User;
-}
-
-// Interface for what the request body should look like
-export interface ActivityInterface {
-  timestamp: number;
-  language: string | null;
-  filename: string | null;
-  workspaceName: string | null;
-  customStatus: string | null;
 }

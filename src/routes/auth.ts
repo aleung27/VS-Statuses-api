@@ -39,6 +39,8 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
       username: profile.login,
       displayName: profile.name,
       profilePicUrl: profile.avatar_url,
+      following: [],
+      followingEtag: null,
     };
 
     if (user) {
