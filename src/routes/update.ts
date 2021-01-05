@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Activity from "../entities/Activity";
-import joi, { number } from "joi";
+import joi from "joi";
 import createError from "http-errors";
 import User from "../entities/User";
 import Status from "../interfaces/Status";

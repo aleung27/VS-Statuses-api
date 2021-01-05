@@ -4,6 +4,11 @@ import { Octokit } from "@octokit/rest";
 import { generateTokens } from "../utilities/tokens";
 import updateFollowing from "../utilities/updateFollowing";
 import createError from "http-errors";
+import joi from "joi";
+
+const schema = joi.object({
+  accessToken: joi.string().required(),
+});
 
 /**
  * Provides the logic for the auth route for our API. Requests into our API
@@ -19,43 +24,44 @@ import createError from "http-errors";
  * @param next The next function to be called in the middleware stack
  */
 const auth = async (req: Request, res: Response, next: NextFunction) => {
-  if (req.body?.accessToken) {
-    // Make a new octokit with the access token and get the user's profile info
-    const octokit = new Octokit({ auth: req.body.accessToken });
-    const profile = (await octokit.request("GET /user")).data;
-
-    /**
-     *  Either find the existing user matching the github profile id
-     *  or create a new user with the given information from the profile
-     *  Note, refreshToken is undefined for github!
-     */
-    let user: User | undefined = await User.findOne({
-      githubId: profile.id,
-    });
-
-    const userData = {
-      githubId: profile.id,
-      accessToken: req.body.accessToken,
-      username: profile.login,
-      displayName: profile.name,
-      profilePicUrl: profile.avatar_url,
-      following: [],
-      followingEtag: null,
-    };
-
-    if (user) {
-      await User.update(user.id, userData);
-    } else {
-      user = await User.create(userData).save();
-    }
-
-    // Generate access and refresh tokens and return to user
-    updateFollowing(user);
-    res.json(generateTokens(user));
-  } else {
-    // Incorrect body attached
-    next(createError(400, "Bad Request"));
+  // Validate the body and if it fails, error out
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return next(createError(400, "Bad Request"));
   }
+
+  // Make a new octokit with the access token and get the user's profile info
+  const octokit = new Octokit({ auth: req.body.accessToken });
+  const profile = (await octokit.request("GET /user")).data;
+
+  /**
+   *  Either find the existing user matching the github profile id
+   *  or create a new user with the given information from the profile
+   *  Note, refreshToken is undefined for github!
+   */
+  let user: User | undefined = await User.findOne({
+    githubId: profile.id,
+  });
+
+  const userData = {
+    githubId: profile.id,
+    accessToken: req.body.accessToken,
+    username: profile.login,
+    displayName: profile.name,
+    profilePicUrl: profile.avatar_url,
+    following: [],
+    followingEtag: null,
+  };
+
+  if (user) {
+    await User.update(user.id, userData);
+  } else {
+    user = await User.create(userData).save();
+  }
+
+  // Generate access and refresh tokens and return to user
+  updateFollowing(user);
+  res.json(generateTokens(user));
 };
 
 export default auth;
