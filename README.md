@@ -1,6 +1,6 @@
-# Vstatus-api
+# VS Statuses api
 
-API for the vstatus extension
+API for the VS Statuses extension
 
 ## Environment Variables
 
