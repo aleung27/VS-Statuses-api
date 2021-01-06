@@ -36,6 +36,7 @@ const updateFollowing = async (user: User) => {
     });
   } catch (err) {
     /* 304 not modified falls into here and other errors*/
+    console.log(err);
   }
 };
 
