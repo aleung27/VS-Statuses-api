@@ -6,13 +6,31 @@ import User from "../entities/User";
 import Status from "../interfaces/Status";
 import ActivityInterface from "../interfaces/ActivityInterface";
 
+const maxTextLength = Math.pow(2, 16) - 1;
+
 // Schema for what should be passed in the body of the req to the API
 const activitySchema = joi.object({
-  timestamp: joi.number().integer().positive().required(),
-  language: joi.string().allow("").allow(null).lowercase().required(),
-  filename: joi.string().allow("").allow(null).required(),
-  workspaceName: joi.string().allow("").allow(null).required(),
-  customMessage: joi.string().allow("").allow(null).required(),
+  timestamp: joi.number().integer().positive().max(Math.pow(2, 32)).required(),
+  language: joi
+    .string()
+    .allow("")
+    .allow(null)
+    .lowercase()
+    .max(maxTextLength)
+    .required(),
+  filename: joi.string().allow("").allow(null).max(maxTextLength).required(),
+  workspaceName: joi
+    .string()
+    .allow("")
+    .allow(null)
+    .max(maxTextLength)
+    .required(),
+  customMessage: joi
+    .string()
+    .allow("")
+    .allow(null)
+    .max(maxTextLength)
+    .required(),
 });
 
 /**
