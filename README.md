@@ -3,7 +3,7 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/aleung27/VS-Statuses-api)](https://github.com/aleung27/VS-Statuses-api/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/aleung27/VS-Statuses-api)](https://github.com/aleung27/VS-Statuses-api/issues)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/aleung27/VS-Statuses-api)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/aleung27/VS-Statuses-api)
 
 [![GitHub license](https://img.shields.io/github/license/aleung27/VS-Statuses-api)](https://github.com/aleung27/VS-Statuses-api/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Faleung27%2FVS-Statuses-api)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Faleung27%2FVS-Statuses-api)
