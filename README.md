@@ -1,4 +1,4 @@
-# VS Statuses api
+# :loudspeaker: VS Statuses API :loudspeaker:
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/aleung27/VS-Statuses-api?include_prereleases)
 
 [![GitHub stars](https://img.shields.io/github/stars/aleung27/VS-Statuses-api)](https://github.com/aleung27/VS-Statuses-api/stargazers)
@@ -12,16 +12,26 @@ API for the [VS Statuses extension](https://github.com/aleung27/VS-Statuses). Re
 
 This API is built upon the Express.js framework utilising Typescript for added type safety.  
 
-## Installation & Usage
+## :computer: Installation & Usage :computer:
 
-Ensure you have the normal npm stuff installed before you run the commands
+The API can be run locally over HTTPS by generating your own SSL Certificates and trusting them. By default the API runs on port 8000. To generate your own certificates and keys type the following:
+
+```
+openssl req -x509 -newkey rsa:2048 -keyout keytmp.pem -out cert.pem -days 365
+openssl rsa -in keytmp.pem -out key.pem
+```
+
+This generates the `cert.pem` and `key.pem` certificates that are used in the API to create the HTTPS server. For more information visit the Express docs or the following link. [Click Here](https://medium.com/@nitinpatel_20236/how-to-create-an-https-server-on-localhost-using-express-366435d61f28).
+
+Ensure you have the normal npm stuff installed before you run the following commands:
 
 ```
 cd VS-Statuses-api
 npm i
 npm run start
 ```
-## Environment Variables
+
+## :evergreen_tree: Environment Variables :evergreen_tree:
 
 Create a .env file in the root of the project and add the following fields with their respective values:
 
@@ -43,7 +53,7 @@ Optionally TYPEORM_SYNCHRONIZE and TYPEORM_LOGGING may also be specified for a d
 
 See [TypeORM](https://typeorm.io/) for more information on configuring your local database with the env variables.
 
-## Contribution Guide
+## :handshake: Contribution Guide :handshake:
 
 :heart: Great that you want to contribute; contributions are always very welcome! :heart:
 
