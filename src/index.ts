@@ -32,22 +32,6 @@ const main = async () => {
   app.use(bodyParse.json());
 
   /**
-   * Testing token generation and authentication
-   */
-  // app.get("/gen", async (req, res) => {
-  //   try {
-  //     res.send(
-  //       JSON.stringify(
-  //         generateTokens(await User.findOneOrFail({ githubId: "59858450" }))
-  //       )
-  //     );
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // });
-  // app.get("/testauth", authenticateTokens, (req, res) => res.send("nice!"));
-
-  /**
    * Route for authentication of the user for our API
    */
   app.post("/auth", errorCatcher(auth));
