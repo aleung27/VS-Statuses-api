@@ -35,10 +35,7 @@ npm run start
 
 Create a .env file in the root of the project and add the following fields with their respective values:
 
-- GITHUB_CLIENT_SECRET
-- GITHUB_CLIENT_ID
 - NODE_ENV
-- URL
 - TYPEORM_CONNECTION
 - TYPEORM_HOST
 - TYPEORM_USERNAME

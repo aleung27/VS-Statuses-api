@@ -6,8 +6,8 @@ import "reflect-metadata";
 import createError from "http-errors";
 import bodyParse from "body-parser";
 
-import { createConnection, getConnection } from "typeorm";
-import { Tokens, generateTokens, authenticateTokens } from "./utilities/tokens";
+import { createConnection } from "typeorm";
+import { authenticateTokens } from "./utilities/tokens";
 import auth from "./routes/auth";
 import update from "./routes/update";
 import { errorCatcher, errorHandler } from "./utilities/errors";
