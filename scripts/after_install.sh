@@ -1,4 +1,5 @@
 #!/bin/bash
 cd /home/ec2-user/server
-sudo npm install -g pm2 tslint typescript
-npm install
+rm -rf node_modules/
+npm i
+sudo npm i -g pm2
