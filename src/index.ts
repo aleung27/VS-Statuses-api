@@ -18,27 +18,27 @@ const main = async () => {
   dotenv.config(); // Configure reading of .env file
 
   // Credentials for https
-  const credentials = {
-    key:
-      process.env.NODE_ENV === "development"
-        ? fs.readFileSync("./key.pem")
-        : fs.readFileSync(
-            "/etc/letsencrypt/live/vsstatuses.ddns.net/privkey.pem"
-          ),
-    cert:
-      process.env.NODE_ENV === "development"
-        ? fs.readFileSync("./cert.pem")
-        : fs.readFileSync("/etc/letsencrypt/live/vsstatuses.ddns.net/cert.pem"),
-    ca:
-      process.env.NODE_ENV === "development"
-        ? undefined
-        : fs.readFileSync(
-            "/etc/letsencrypt/live/vsstatuses.ddns.net/chain.pem"
-          ),
-  };
+  // const credentials = {
+  //   key:
+  //     process.env.NODE_ENV === "development"
+  //       ? fs.readFileSync("./key.pem")
+  //       : fs.readFileSync(
+  //           "/etc/letsencrypt/live/vsstatuses.ddns.net/privkey.pem"
+  //         ),
+  //   cert:
+  //     process.env.NODE_ENV === "development"
+  //       ? fs.readFileSync("./cert.pem")
+  //       : fs.readFileSync("/etc/letsencrypt/live/vsstatuses.ddns.net/cert.pem"),
+  //   ca:
+  //     process.env.NODE_ENV === "development"
+  //       ? undefined
+  //       : fs.readFileSync(
+  //           "/etc/letsencrypt/live/vsstatuses.ddns.net/chain.pem"
+  //         ),
+  // };
 
   const app = express();
-  const server = https.createServer(credentials, app);
+  //const server = https.createServer(credentials, app);
 
   // Setup the connection to the database
   const db = await createConnection().catch((e) => console.log(e));
@@ -71,9 +71,11 @@ const main = async () => {
   // Use the custom error handler we made
   app.use(errorHandler);
 
-  server.listen(PORT, () => {
-    console.log("Running...");
-  });
+  // server.listen(PORT, () => {
+  //   console.log("Running...");
+  // });
+
+  app.listen(PORT, () => console.log("Running..."));
 };
 
 main();
