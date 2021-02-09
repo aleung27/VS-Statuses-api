@@ -35,20 +35,41 @@ npm run start
 
 Create a .env file in the root of the project and add the following fields with their respective values:
 
-- NODE_ENV
-- TYPEORM_CONNECTION
-- TYPEORM_HOST
-- TYPEORM_USERNAME
-- TYPEORM_PASSWORD
-- TYPEORM_DATABASE
-- TYPEORM_PORT
-- TYPEORM_ENTITIES
-- ACCESS_TOKEN_SECRET
-- REFRESH_TOKEN_SECRET
+- NODE_ENV (Specify the environment we're running the server in e.g. "development")
+- TYPEORM_CONNECTION (Specify the database type e.g. "mysql")
+- TYPEORM_HOST (Specify the host of the database e.g. "localhost")
+- TYPEORM_USERNAME (Specify the username for logging into the database e.g. "root")
+- TYPEORM_PASSWORD (Specify the password associated with the username e.g. "password")
+- TYPEORM_DATABASE (Specify the database name e.g. "database")
+- TYPEORM_PORT (Specify the port the database is accessible from e.g. 3306)
+- TYPEORM_ENTITIES (Specify the path to the compiled entity files e.g. "dist/entities/*.js") 
+- ACCESS_TOKEN_SECRET (Specify the secret key used for signing jwt's)
+- REFRESH_TOKEN_SECRET (Specify the secret key used for signing jwt's)
 
 Optionally TYPEORM_SYNCHRONIZE and TYPEORM_LOGGING may also be specified for a development environment.
 
-See [TypeORM](https://typeorm.io/) for more information on configuring your local database with the env variables.
+For the production environment, TYPEORM_MIGRATIONS and TYPEORM_MIGRATIONS_DIR should also be specified instead of using database synchronisation.
+
+See [TypeORM](https://typeorm.io/) and [TypeORM Config with Env Variables](https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md#using-environment-variables) for more information on configuring your local database with the env variables.
+
+## :hammer_and_wrench: Architecture :hammer_and_wrench:
+
+The main source code files for the API are under the `src` file in the root of the project. This consists of:
+- `entities`: Definitions for the ORM's used to access the information in the database through typeorm.
+- `interfaces`: Definitions for interfaces for different objects used throughout the API
+- `routes`: Definitions for each of the routes respective functions 
+- `utilities`: Definitions for utility functions used in the API such as error handling, token generation and other functions
+
+The `scripts` folder contains scripts used for deployment via AWS CodePipeline, CodeBuild and CodeDeploy. The server consists of an Apache2 server running on an Ec2 instance which proxies requests to the Express API running indefinitly via [pm2](https://github.com/Unitech/pm2), accessing a MySQL database running on Amazon's RDS to store and retrieve information. A CI/CD Pipeline is setup off the master branch so that any code successfully integrated is automatically deployed to the live server after approval. The `appspec.yml` and `buildspec.yml` are used for CodeDeploy and CodeBuild respectively. More information can be found [here](https://medium.com/dev-genius/deploy-a-reactjs-application-to-aws-ec2-instance-using-aws-codepipeline-3df5e4157028) although the actual deployment differs slightly.
+
+![](https://miro.medium.com/max/2400/1*dJbYXNEqKxuabIUppiP5Tw.jpeg)
+
+Migrations are run manually in order to avoid potential issues with automated syncing of the production database. In order to run migrations, ssh into the Ec2 instance and run the following commands:
+
+```
+npm run typeorm migration:generate -- -n <Name of migration here>
+npm run typeorm migration:run
+```
 
 ## :handshake: Contribution Guide :handshake:
 
