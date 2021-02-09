@@ -16,29 +16,16 @@ const PORT = 8000;
 
 const main = async () => {
   dotenv.config(); // Configure reading of .env file
-
-  // Credentials for https
-  // const credentials = {
-  //   key:
-  //     process.env.NODE_ENV === "development"
-  //       ? fs.readFileSync("./key.pem")
-  //       : fs.readFileSync(
-  //           "/etc/letsencrypt/live/vsstatuses.ddns.net/privkey.pem"
-  //         ),
-  //   cert:
-  //     process.env.NODE_ENV === "development"
-  //       ? fs.readFileSync("./cert.pem")
-  //       : fs.readFileSync("/etc/letsencrypt/live/vsstatuses.ddns.net/cert.pem"),
-  //   ca:
-  //     process.env.NODE_ENV === "development"
-  //       ? undefined
-  //       : fs.readFileSync(
-  //           "/etc/letsencrypt/live/vsstatuses.ddns.net/chain.pem"
-  //         ),
-  // };
-
   const app = express();
-  //const server = https.createServer(credentials, app);
+
+  /**
+   * Uncomment out these lines for a local https server when running locally
+   * Apache SSL sorts this out for us on production
+   */
+  // const server = https.createServer(
+  //   { key: fs.readFileSync("./key.pem"), cert: fs.readFileSync("./cert.pem") },
+  //   app
+  // );
 
   // Setup the connection to the database
   const db = await createConnection().catch((e) => console.log(e));
@@ -66,11 +53,10 @@ const main = async () => {
     next(createError(404, "Page not found :("));
   });
 
-  app.get("/test", (req, res, next) => res.send("Testing complete"));
-
   // Use the custom error handler we made
   app.use(errorHandler);
 
+  // Uncomment for https locally
   // server.listen(PORT, () => {
   //   console.log("Running...");
   // });
