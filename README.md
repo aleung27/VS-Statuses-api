@@ -1,4 +1,4 @@
-# :loudspeaker: VS Statuses API :loudspeaker:
+# VS Statuses API
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/aleung27/VS-Statuses-api?include_prereleases)
 
 [![GitHub stars](https://img.shields.io/github/stars/aleung27/VS-Statuses-api)](https://github.com/aleung27/VS-Statuses-api/stargazers)
@@ -11,6 +11,12 @@
 API for the [VS Statuses extension](https://github.com/aleung27/VS-Statuses). Requests to the API are processed with new status updates from users being stored in a MYSQL database. Updates from users you are following are then returned by the API to be processed by the extension.
 
 This API is built upon the Express.js framework utilising Typescript for added type safety.  
+
+## Support
+
+Donations of any amount are greatly appreciated to help fund my uni-student diet of instant ramen packs and my bubble tea addiction (along with servers - those are expensive af!)
+
+<p style="text-align:center;" align="center"><a href='https://ko-fi.com/C0C73LYUO' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi4.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com'/></a></p>
 
 ## :computer: Installation & Usage :computer:
 
@@ -86,3 +92,6 @@ Usual Github contribution flow:
 :sparkles::sparkles: And your done! :sparkles::sparkles:
 
 Make sure to add comments as you make your changes. Follow existing coding patterns and idioms already present in the project.
+
+Found a bug or got a suggestion? Feel free to submit a new [Issue](https://github.com/aleung27/VS-Statuses-api/issues)
+
