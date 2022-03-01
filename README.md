@@ -8,6 +8,8 @@
 [![GitHub license](https://img.shields.io/github/license/aleung27/VS-Statuses-api)](https://github.com/aleung27/VS-Statuses-api/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Faleung27%2FVS-Statuses-api)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Faleung27%2FVS-Statuses-api)
 
+**Depreciated and disabled (server has been shut down)**
+
 API for the [VS Statuses extension](https://github.com/aleung27/VS-Statuses). Requests to the API are processed with new status updates from users being stored in a MYSQL database. Updates from users you are following are then returned by the API to be processed by the extension.
 
 This API is built upon the Express.js framework utilising Typescript for added type safety.  
